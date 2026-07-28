@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Spider-Man Movie Date? 🕷️</title>
+  <title>Spider-Sense Quiz Invitation 🕷️</title>
   <style>
     * {
       box-sizing: border-box;
@@ -22,11 +22,11 @@
       overflow: hidden;
     }
     .card {
-      background: rgba(20, 20, 30, 0.85);
+      background: rgba(20, 20, 30, 0.9);
       border: 2px solid #e50914;
       box-shadow: 0 0 25px rgba(229, 9, 20, 0.4), inset 0 0 15px rgba(0, 162, 255, 0.2);
-      border-radius: 20px;
-      padding: 30px;
+      border-radius: 24px;
+      padding: 30px 20px;
       max-width: 420px;
       width: 100%;
       text-align: center;
@@ -37,125 +37,238 @@
       justify-content: space-between;
       backdrop-filter: blur(10px);
     }
+    .layer {
+      display: none;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 100%;
+      opacity: 0;
+      transform: translateY(15px);
+      transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+    .layer.active {
+      display: flex;
+      opacity: 1;
+      transform: translateY(0);
+    }
     .badge {
       background: #e50914;
       color: #fff;
       font-weight: bold;
-      font-size: 12px;
+      font-size: 11px;
       letter-spacing: 1.5px;
-      padding: 6px 14px;
+      padding: 5px 12px;
       border-radius: 50px;
       text-transform: uppercase;
       align-self: center;
-      margin-bottom: 15px;
+      margin-bottom: 12px;
       box-shadow: 0 0 10px rgba(229, 9, 20, 0.6);
+      width: fit-content;
+      margin-left: auto;
+      margin-right: auto;
     }
     h1 {
-      font-size: 26px;
+      font-size: 22px;
       color: #ffffff;
-      margin-bottom: 10px;
+      margin-bottom: 12px;
       text-shadow: 0 0 10px rgba(229, 9, 20, 0.5);
+    }
+    p {
+      color: #ccc;
+      font-size: 14px;
+      line-height: 1.4;
+    }
+    .options-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 15px;
+    }
+    .quiz-btn {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #fff;
+      padding: 12px 16px;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      text-align: left;
+      transition: all 0.2s ease;
+    }
+    .quiz-btn:hover {
+      background: rgba(229, 9, 20, 0.3);
+      border-color: #e50914;
+      transform: translateX(4px);
+    }
+    .feedback {
+      color: #00d2ff;
+      font-size: 13px;
+      margin-top: 8px;
+      height: 18px;
+      font-weight: bold;
     }
     .movie-title {
       color: #00d2ff;
-      font-size: 20px;
+      font-size: 22px;
       font-weight: 700;
-      margin-bottom: 15px;
+      margin: 10px 0;
+      text-shadow: 0 0 8px rgba(0, 210, 255, 0.5);
     }
     .date-badge {
       font-size: 16px;
       background: rgba(255, 255, 255, 0.1);
       padding: 10px;
-      border-radius: 10px;
-      margin-bottom: 25px;
+      border-radius: 12px;
+      margin: 15px 0;
       border: 1px solid rgba(255,255,255,0.15);
     }
     .btn-container {
       position: relative;
-      height: 120px;
+      height: 100px;
       width: 100%;
-      margin-top: 10px;
+      margin-top: 15px;
     }
     .btn {
-      padding: 14px 32px;
-      font-size: 18px;
+      padding: 12px 26px;
+      font-size: 16px;
       font-weight: bold;
       border-radius: 50px;
       border: none;
       cursor: pointer;
-      transition: transform 0.2s, box-shadow 0.2s;
     }
     .btn-yes {
-      background: linear-gradient(135deg, #e50914, #99000d);
+      background: linear-gradient(135deg, #00d2ff, #0072ff);
       color: white;
-      box-shadow: 0 4px 15px rgba(229, 9, 20, 0.5);
+      box-shadow: 0 4px 15px rgba(0, 210, 255, 0.5);
       position: absolute;
-      left: 15%;
-      top: 30px;
+      left: 10%;
+      top: 20px;
     }
     .btn-yes:hover {
       transform: scale(1.1);
-      box-shadow: 0 6px 20px rgba(229, 9, 20, 0.8);
     }
     .btn-no {
       background: #333;
       color: #ccc;
       position: absolute;
-      right: 15%;
-      top: 30px;
+      right: 10%;
+      top: 20px;
       transition: top 0.15s ease, left 0.15s ease;
     }
-    .modal {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.85);
-      align-items: center;
-      justify-content: center;
-      z-index: 100;
-      padding: 20px;
-    }
-    .modal-content {
-      background: #12121c;
-      border: 2px solid #00d2ff;
-      box-shadow: 0 0 30px rgba(0, 210, 255, 0.5);
-      padding: 30px;
-      border-radius: 20px;
-      text-align: center;
-      max-width: 380px;
-    }
-    .modal-content h2 {
-      color: #00d2ff;
-      margin-bottom: 15px;
+    .spider-icon {
+      font-size: 45px;
+      margin-bottom: 5px;
     }
   </style>
 </head>
 <body>
 
-  <div class="card" id="card">
-    <div>
-      <div class="badge">🕷️ Special Invitation</div>
-      <h1>Movie Date?</h1>
-      <div class="movie-title">Spider-Man: Brand New Day</div>
-      <div class="date-badge">📅 <strong>August 2, 2026</strong></div>
-      <p style="color: #aaa; font-size: 14px;">My spider-sense tells me you can't say no to this... 😉</p>
+  <div class="card">
+    
+    <!-- Question 1 -->
+    <div class="layer active" id="layer1">
+      <div>
+        <div class="spider-icon">🕵️‍♂️</div>
+        <div class="badge">Question 1 of 3</div>
+        <h1>Quick Verification!</h1>
+        <p>What is the absolute best way to spend a weekend evening?</p>
+        <div class="options-grid">
+          <button class="quiz-btn" onclick="answer(1, 'Correct! Movies are superior. 🍿', 2)">A) Popcorn, drinks, and a great movie 🍿</button>
+          <button class="quiz-btn" onclick="answer(1, 'Wrong! Try again 😉', null)">B) Doing homework or house chores 🧹</button>
+          <button class="quiz-btn" onclick="answer(1, 'Nice try, but movie night wins! 🎬', 2)">C) Hanging out together with snacks 🍫</button>
+        </div>
+        <div class="feedback" id="fb1"></div>
+      </div>
     </div>
 
-    <div class="btn-container" id="area">
-      <button class="btn btn-yes" onclick="acceptInvitation()">YES! 🍿</button>
-      <button class="btn btn-no" id="noBtn" onmouseover="dodge()" onclick="dodge()">No</button>
+    <!-- Question 2 -->
+    <div class="layer" id="layer2">
+      <div>
+        <div class="spider-icon">🕸️</div>
+        <div class="badge">Question 2 of 3</div>
+        <h1>Who is the cooler superhero?</h1>
+        <p>Choose carefully, your answer determines the rest of this test...</p>
+        <div class="options-grid">
+          <button class="quiz-btn" onclick="answer(2, 'Bingo! Spider-Man rules 🕷️', 3)">A) Spider-Man (Obviously) 🕷️</button>
+          <button class="quiz-btn" onclick="answer(2, 'Peter Parker is typing... 📱', 3)">B) Peter Parker 🕸️</button>
+          <button class="quiz-btn" onclick="answer(2, 'Incorrect! Spidey is the right answer 😜', null)">C) Batman 🦇</button>
+        </div>
+        <div class="feedback" id="fb2"></div>
+      </div>
     </div>
-  </div>
 
-  <div class="modal" id="modal">
-    <div class="modal-content">
-      <h2>Woohoo! It's a Date! 🕸️❤️</h2>
-      <p style="margin-bottom: 15px; font-size: 16px;">I knew you'd make the right choice!</p>
-      <p style="color: #aaa;">See you on <strong>August 2nd</strong> for <em>Spider-Man: Brand New Day</em>. Popcorn is on me!</p>
+    <!-- Question 3 -->
+    <div class="layer" id="layer3">
+      <div>
+        <div class="spider-icon">📅</div>
+        <div class="badge">Question 3 of 3</div>
+        <h1>Calendar Check!</h1>
+        <p>Are you officially free on <strong>August 2nd</strong>?</p>
+        <div class="options-grid">
+          <button class="quiz-btn" onclick="answer(3, 'Perfect! Quiz passed! 🎉', 4)">A) Yes, 100% free! 🙌</button>
+          <button class="quiz-btn" onclick="answer(3, 'I will clear my schedule! 🗓️', 4)">B) I can clear my schedule for you! ✨</button>
+        </div>
+        <div class="feedback" id="fb3"></div>
+      </div>
     </div>
+
+    <!-- Final Proposal Layer -->
+    <div class="layer" id="layer4">
+      <div>
+        <div class="badge">Quiz Complete • 100% Score</div>
+        <h1>You Passed! Here is Your Reward 🎉</h1>
+        <p>Since you answered correctly, you are officially invited to:</p>
+        <div class="movie-title">🎬 Spider-Man: Brand New Day</div>
+        <div class="date-badge">📅 <strong>August 2, 2026</strong></div>
+        <p style="color: #aaa; font-size: 13px;">Will you be my movie date?</p>
+      </div>
+
+      <div class="btn-container" id="area">
+        <button class="btn btn-yes" onclick="nextLayer(5)">YES! 🍿</button>
+        <button class="btn btn-no" id="noBtn" onmouseover="dodge()" onclick="dodge()">No</button>
+      </div>
+    </div>
+
+    <!-- Final Celebration Layer -->
+    <div class="layer" id="layer5">
+      <div>
+        <div class="spider-icon">🎉🕸️</div>
+        <h1 style="color: #00d2ff;">WOOHOO! IT'S A DATE!</h1>
+        <p style="margin-top: 15px; font-size: 16px;">I knew you'd say yes! 😉</p>
+        <div class="date-badge" style="border-color: #00d2ff;">
+          📅 <strong>August 2, 2026</strong><br>
+          🍿 Movie & Snacks Reserved!
+        </div>
+        <p style="color: #888; font-size: 13px;">Screenshot this screen and send it to me! 📸</p>
+      </div>
+    </div>
+
   </div>
 
   <script>
+    function answer(currentStep, msg, nextStep) {
+      const fb = document.getElementById('fb' + currentStep);
+      fb.innerText = msg;
+      
+      if (nextStep) {
+        setTimeout(() => {
+          nextLayer(nextStep);
+        }, 800);
+      }
+    }
+
+    function nextLayer(layerNum) {
+      document.querySelectorAll('.layer').forEach(layer => {
+        layer.classList.remove('active');
+      });
+      
+      setTimeout(() => {
+        const next = document.getElementById('layer' + layerNum);
+        next.classList.add('active');
+      }, 100);
+    }
+
     const noBtn = document.getElementById('noBtn');
     const area = document.getElementById('area');
 
@@ -173,15 +286,10 @@
       noBtn.style.top = randomY + 'px';
     }
 
-    // Touch support for phones
     noBtn.addEventListener('touchstart', (e) => {
       e.preventDefault();
       dodge();
     });
-
-    function acceptInvitation() {
-      document.getElementById('modal').style.display = 'flex';
-    }
   </script>
 </body>
 </html>
